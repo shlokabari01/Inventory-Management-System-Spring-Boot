@@ -1,7 +1,7 @@
 
 
 node(){
-def sonarScanner = tool name: 'SonarQube',type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+def sonarScanner = tool name: 'SonnarQube',type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 stage('Code Checkout'){
    git credentialsId: 'GitHubCred', url: 'https://github.com/shlokabari01/Inventory-Management-System-Spring-Boot.git'
 }
