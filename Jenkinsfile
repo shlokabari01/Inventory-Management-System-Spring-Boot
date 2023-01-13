@@ -1,28 +1,22 @@
-peline {
-    agent any
-    stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/<username>/<repository>.git', branch: '<branch>'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn clean install'
-            }
-         stage('Scanning'){
-               withSonarQubeEnv(credentialsId: '03848b78-138b-412a-b9cc-4fa70b8a1f61')  {
-                 sh "${sonarScanner}/bin/sonar-scanner"
-	       }
-        stage ('Notification'){
-		emailext (
-		      emailext body: 'Successfully Build', subject: 'Build Status', to: 'barishloka0611@gmail.com'
-		    )
-	
-    }
-        }
+
+
+node(){
+def sonarScanner = tool name: 'SonarQube',type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+stage('Code Checkout'){
+   git credentialsId: 'GitHubCred', url: 'https://github.com/shlokabari01/Inventory-Management-System-Spring-Boot.git'
+}
+
+
+stage('Build & Test Automation'){
+    sh """
+        ls -lart
+        mvn clean install
+       """
+
+}
+stage('Deployment'){
+     withSonarQubeEnv(credentialsId: '03848b78-138b-412a-b9cc-4fa70b8a1f61') {
+    sh "${sonarScanner}/bin/sonar-scanner"
     }
 }
-
 }
-
