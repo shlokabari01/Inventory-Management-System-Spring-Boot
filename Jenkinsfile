@@ -25,7 +25,7 @@ node(){
 
  
 
-        stage('NPM Build'){
+        stage('Maven Build'){
             sh "mvn clean install"
         }
 
@@ -37,21 +37,6 @@ node(){
             echo "The test is SUCCESSFUL"
         }
 
- 
-
- 
-
-        stage('SonarQube Analysis'){
-            withSonarQubeEnv(credentialsId: 'e9489baa-c3ec-4ac4-8303-be5d48324308') {
-            sh "${sonarScanner}/bin/sonar-scanner"
-        }
-    }
-
- 
-
- 
-
- 
 
     }
     catch (Exception e){
