@@ -3,7 +3,7 @@
 def containerName="springboot"
 def tag="latest"
 def dockerHubUser="shlokabari06"
-def httpPort="8090"
+
 
 node {
 
